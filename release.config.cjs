@@ -11,7 +11,7 @@ function dateVersion() {
 }
 
 const versionPlugin = {
-  analyzeCommits({ lastRelease, logger }) {
+  analyzeCommits(pluginConfig, { lastRelease, logger }) {
     const version = dateVersion()
     if (lastRelease && lastRelease.version === version) {
       logger.log('Version %s was already released today, skipping release', version)
@@ -20,13 +20,13 @@ const versionPlugin = {
     return 'patch'
   },
 
-  generateNotes({ nextRelease }) {
+  generateNotes(pluginConfig, { nextRelease }) {
     nextRelease.version = dateVersion()
     nextRelease.gitTag = `v${nextRelease.version}`
     return ''
   },
 
-  prepare({ nextRelease, logger }) {
+  prepare(pluginConfig, { nextRelease, logger }) {
     nextRelease.version = dateVersion()
     nextRelease.gitTag = `v${nextRelease.version}`
     logger.log('Releasing version %s', nextRelease.version)
