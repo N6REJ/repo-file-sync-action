@@ -4,12 +4,19 @@ on:
     types: [published, edited]
 jobs:
   latest:
-    name: Latest
-    runs-on: windows-latest
+    name: Update latest tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Update latest tag
-        uses: Actions-R-Us/actions-tagger@latest
-        env:
-          GITHUB_TOKEN: "${{ secrets.GH_PAT }}"
+      - name: Checkout
+        uses: actions/checkout@v6
         with:
-          publish_latest_tag: true
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Move latest tag
+        run: |
+          git tag -f latest ${{ github.event.release.tag_name }}
+          git push -f origin latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}

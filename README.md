@@ -43,9 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v6
       - name: Run GitHub File Sync
-        uses: N6REJ/repo-file-sync-action@v1
+        uses: N6REJ/repo-file-sync-action@latest
         with:
           GH_PAT: ${{ secrets.GH_PAT }}
 ```
@@ -359,7 +359,7 @@ By default [repo-file-sync-action](https://github.com/N6REJ/repo-file-sync-actio
 
 ```yml
 - name: Run GitHub File Sync
-  uses: N6REJ/repo-file-sync-action@v1
+  uses: N6REJ/repo-file-sync-action@latest
   with:
     GH_PAT: ${{ secrets.GH_PAT }}
     PR_LABELS: |
@@ -375,7 +375,7 @@ You can tell [repo-file-sync-action](https://github.com/N6REJ/repo-file-sync-act
 
 ```yml
 - name: Run GitHub File Sync
-  uses: N6REJ/repo-file-sync-action@v1
+  uses: N6REJ/repo-file-sync-action@latest
   with:
     GH_PAT: ${{ secrets.GH_PAT }}
     ASSIGNEES: N6REJ
@@ -389,7 +389,7 @@ You can tell [repo-file-sync-action](https://github.com/N6REJ/repo-file-sync-act
 
 ```yml
 - name: Run GitHub File Sync
-  uses: N6REJ/repo-file-sync-action@v1
+  uses: N6REJ/repo-file-sync-action@latest
   with:
     GH_PAT: ${{ secrets.GH_PAT }}
     REVIEWERS: |
@@ -428,7 +428,7 @@ If your repo name contains invalid characters, like a dot ([#32](https://github.
 **.github/workflows/sync.yml**
 
 ```yml
-uses: N6REJ/repo-file-sync-action@v1
+uses: N6REJ/repo-file-sync-action@latest
 with:
     GH_PAT: ${{ secrets.GH_PAT }}
     BRANCH_PREFIX: custom-branch
@@ -446,7 +446,7 @@ You can specify a custom commit body. This will be appended to the commit messag
 
 ```yml
 - name: Run GitHub File Sync
-  uses: N6REJ/repo-file-sync-action@v1
+  uses: N6REJ/repo-file-sync-action@latest
   with:
     GH_PAT: ${{ secrets.GH_PAT }}
     COMMIT_BODY: "Change-type: patch"
@@ -467,7 +467,7 @@ You can add more content to the PR body with the `PR_BODY` option. For example:
 
 ```yml
 - name: Run GitHub File Sync
-  uses: N6REJ/repo-file-sync-action@v1
+  uses: N6REJ/repo-file-sync-action@latest
   with:
     GH_PAT: ${{ secrets.GH_PAT }}
     PR_BODY: This is your custom PR Body
@@ -496,7 +496,7 @@ A fork of each target repository will be created on this account, and all change
 Note: while you can open pull requests to target repositories without write access, some features, like applying labels, are not possible.
 
 ```yml
-uses: N6REJ/repo-file-sync-action@v1
+uses: N6REJ/repo-file-sync-action@latest
 with:
     GH_PAT: ${{ secrets.GH_PAT }}
     FORK: file-sync-bot
