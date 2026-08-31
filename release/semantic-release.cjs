@@ -28,10 +28,10 @@ require.cache[gnvPath] = {
   exports: ({ lastRelease }) => {
     const today = dateVersion()
     const last = lastRelease && lastRelease.version
-    if (last && (last === today || last.startsWith(`${today}-`))) {
-      const prerelease = semver.prerelease(last)
-      const build = Array.isArray(prerelease) && typeof prerelease[0] === 'number' ? prerelease[0] : 0
-      return `${today}-${build + 1}`
+    if (last && (last === today || last.startsWith(`${today}.`))) {
+      const parts = last.split('.')
+      const build = parts.length > 3 && !isNaN(parts[3]) ? parseInt(parts[3]) : 0
+      return `${today}.${build + 1}`
     }
     return today
   },
