@@ -43,7 +43,7 @@ body:
     attributes:
       label: ⚙️ Environment
       description: |
-        Action version: [e.g. v1.0.0]
+        Action version: [e.g. v2026.08.31]
     validations:
       required: true
 
