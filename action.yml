@@ -1,4 +1,4 @@
-name: 'Repo File Sync Action'
+name: 'Repo File Sync Action - N6REJ'
 description: 'GitHub Action to Sync Files like Workflows Between Repositories.'
 
 inputs:
