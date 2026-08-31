@@ -1,6 +1,6 @@
 <div align="center">
   
-# Repo File Sync Action
+# N6REJ's Repo File Sync Action
 
 [![Build CI](https://github.com/N6REJ/repo-file-sync-action/workflows/Node%20CI/badge.svg)](https://github.com/N6REJ/repo-file-sync-action/actions?query=workflow%3A%22Node+CI%22)  ![Release Date](https://img.shields.io/github/release-date/N6REJ/repo-file-sync-action) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)   
 
