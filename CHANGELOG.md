@@ -1,3 +1,7 @@
+## [v2026.8.31] - 2026-08-31
+
+[Release notes](https://github.com/N6REJ/repo-file-sync-action/releases/tag/v2026.8.31) · [Compare](https://github.com/N6REJ/repo-file-sync-action/compare/v1.0.2...v2026.8.31) · [Tag](https://github.com/N6REJ/repo-file-sync-action/tree/v2026.8.31) · Archive ([zip](https://github.com/N6REJ/repo-file-sync-action/archive/v2026.8.31.zip) · [tar.gz](https://github.com/N6REJ/repo-file-sync-action/archive/v2026.8.31.tar.gz))
+
 ## [v1.0.2] - 2026-08-31
 
 [Release notes](https://github.com/N6REJ/repo-file-sync-action/releases/tag/v1.0.2) · [Compare](https://github.com/N6REJ/repo-file-sync-action/compare/v1.0.1...v1.0.2) · [Tag](https://github.com/N6REJ/repo-file-sync-action/tree/v1.0.2) · Archive ([zip](https://github.com/N6REJ/repo-file-sync-action/archive/v1.0.2.zip) · [tar.gz](https://github.com/N6REJ/repo-file-sync-action/archive/v1.0.2.tar.gz))
