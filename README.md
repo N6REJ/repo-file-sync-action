@@ -2,7 +2,7 @@
   
 # Repo File Sync Action
 
-[![Build CI](https://github.com/N6REJ/repo-file-sync-action/workflows/Node%20CI/badge.svg)](https://github.com/N6REJ/repo-file-sync-action/actions?query=workflow%3A%22Node+CI%22) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/N6REJ/repo-file-sync-action/blob/main/LICENSE)
+[![Build CI](https://github.com/N6REJ/repo-file-sync-action/workflows/Node%20CI/badge.svg)](https://github.com/N6REJ/repo-file-sync-action/actions?query=workflow%3A%22Node+CI%22)  ![Release Date](https://img.shields.io/github/release-date/N6REJ/repo-file-sync-action) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)   
 
 Keep files like Action workflows or entire directories in sync between multiple repositories.
 
@@ -89,10 +89,10 @@ To always use the latest version of the action add the `latest` tag to the actio
 uses: N6REJ/repo-file-sync-action@latest
 ```
 
-Versions follow the `YYYY.MM.DD` scheme (e.g. `2026.08.31`). If you want to make sure that your workflow doesn't suddenly break when a new version is released, pin to a specific version tag instead:
+Versions follow the `YYYY.M.D` date scheme (e.g. `2026.8.31`), which keeps them valid semantic versions that sort correctly by date. If more than one release is published on the same day, a build counter is appended, e.g. `2026.8.31-1`, `2026.8.31-2`. If you want to make sure that your workflow doesn't suddenly break when a new version is released, pin to a specific version tag instead:
 
 ```yml
-uses: N6REJ/repo-file-sync-action@v2026.08.31
+uses: N6REJ/repo-file-sync-action@v2026.8.31
 ```
 
 With the date-based tags you will always get a specific version of the action for that day. If you use a specific version, make sure to regularly check if a new version is available, or enable Dependabot.

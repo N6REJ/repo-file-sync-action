@@ -5,31 +5,14 @@ function dateVersion() {
   const now = new Date()
   return [
     now.getUTCFullYear(),
-    `${now.getUTCMonth() + 1}`.padStart(2, '0'),
-    `${now.getUTCDate()}`.padStart(2, '0'),
+    now.getUTCMonth() + 1,
+    now.getUTCDate(),
   ].join('.')
 }
 
 const versionPlugin = {
-  analyzeCommits(pluginConfig, { lastRelease, logger }) {
-    const version = dateVersion()
-    if (lastRelease && lastRelease.version === version) {
-      logger.log('Version %s was already released today, skipping release', version)
-      return null
-    }
+  analyzeCommits(pluginConfig) {
     return 'patch'
-  },
-
-  generateNotes(pluginConfig, { nextRelease }) {
-    nextRelease.version = dateVersion()
-    nextRelease.gitTag = `v${nextRelease.version}`
-    return ''
-  },
-
-  prepare(pluginConfig, { nextRelease, logger }) {
-    nextRelease.version = dateVersion()
-    nextRelease.gitTag = `v${nextRelease.version}`
-    logger.log('Releasing version %s', nextRelease.version)
   },
 }
 
