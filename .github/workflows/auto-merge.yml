@@ -1,0 +1,66 @@
+on: pull_request_target
+
+name: pull_request_target
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    outputs:
+      repository: ${{ steps.metadata.outputs.repository }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ahmadnassri/action-metadata@v2
+        id: metadata
+
+  auto-merge:
+    timeout-minutes: 5
+
+    runs-on: ubuntu-latest
+
+    # only run for dependabot PRs
+    if: ${{ github.actor == 'dependabot[bot]' }}
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      PR_URL: ${{github.event.pull_request.html_url}}
+      GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    steps:
+      - id: dependabot
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: auto merge conditions
+        id: auto-merge
+        if: |
+          (
+            steps.dependabot.outputs.update-type == 'version-update:semver-patch' &&
+            contains('direct:production,indirect:production', steps.dependabot.outputs.dependency-type)
+          ) || (
+            steps.dependabot.outputs.update-type == 'version-update:semver-minor' &&
+            contains('direct:development,indirect:development', steps.dependabot.outputs.dependency-type)
+          )
+        run: echo "::notice ::auto-merge conditions satisfied"
+
+      - name: auto approve pr
+        if: ${{ steps.auto-merge.conclusion == 'success' }}
+        env:
+          GH_TOKEN: ${{ secrets.BEARSAMPP_BOT_PAT }}
+          GITHUB_TOKEN: ${{ secrets.BEARSAMPP_BOT_PAT }}
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --rebase "$PR_URL" --repo "${{ github.repository }}" \
+            || gh pr merge --squash "$PR_URL" --repo "${{ github.repository }}" \
+            || gh pr merge --merge "$PR_URL" --repo "${{ github.repository }}" \
+            || echo "Merge skipped (PR already merged or not mergeable)."
