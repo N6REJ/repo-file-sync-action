@@ -5,8 +5,8 @@ function dateVersion() {
   const now = new Date()
   return [
     now.getUTCFullYear(),
-    now.getUTCMonth() + 1,
-    now.getUTCDate(),
+    String(now.getUTCMonth() + 1).padStart(2, '0'),
+    String(now.getUTCDate()).padStart(2, '0'),
   ].join('.')
 }
 
@@ -28,12 +28,12 @@ require.cache[gnvPath] = {
   exports: ({ lastRelease }) => {
     const today = dateVersion()
     const last = lastRelease && lastRelease.version
-    if (last && (last === today || last.startsWith(`${today}-`))) {
-      const prerelease = semver.prerelease(last)
-      const build = Array.isArray(prerelease) && typeof prerelease[0] === 'number' ? prerelease[0] : 0
-      return `${today}-${build + 1}`
+    if (last && last.startsWith(`${today}.`)) {
+      const parts = last.split('.')
+      const build = parts.length > 3 && !isNaN(parts[3]) ? parseInt(parts[3]) : 0
+      return `${today}.${build + 1}`
     }
-    return today
+    return `${today}.0`
   },
 }
 
@@ -68,7 +68,22 @@ require.cache[glrPath] = {
 
 const semanticRelease = require('semantic-release')
 
-semanticRelease({}, { cwd: process.cwd(), env: process.env }).then(
+semanticRelease({
+  branches: [
+    {
+      name: 'main',
+      channel: 'latest',
+      range: false,
+    },
+  ],
+  tagFormat: 'v${version}',
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    'semantic-release-gitmoji',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/github',
+  ],
+}, { cwd: process.cwd(), env: process.env }).then(
   (result) => {
     if (result) {
       process.stdout.write('semantic-release: release published.\n')
