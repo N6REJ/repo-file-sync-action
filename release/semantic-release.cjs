@@ -10,12 +10,23 @@ function dateVersion() {
   ].join('.')
 }
 
+function parseBuild(version) {
+  const metadata = `${version}`.split('+')[1]
+  const build = metadata ? parseInt(metadata, 10) : 0
+  return Number.isNaN(build) ? 0 : build
+}
+
+// Build metadata (`+N`) is ignored by semver precedence, so break ties using the numeric per-day build counter.
+function compareVersions(a, b) {
+  const bySemver = semver.rcompare(a, b)
+  return bySemver !== 0 ? bySemver : parseBuild(b) - parseBuild(a)
+}
+
 const utilsPath = require.resolve('semantic-release/lib/utils')
 
-// Make getLatestVersion include prereleases so per-day build numbers advance the branch range
+// Pick the highest version, including prereleases, so per-day build numbers advance the branch range
 const utils = require(utilsPath)
-utils.getLatestVersion = (versions) =>
-  versions.filter((version) => semver.valid(version)).sort(semver.rcompare)[0]
+utils.getLatestVersion = (versions) => versions.filter((version) => semver.valid(version)).sort(compareVersions)[0]
 
 const { isSameChannel, makeTag } = utils
 
@@ -28,12 +39,10 @@ require.cache[gnvPath] = {
   exports: ({ lastRelease }) => {
     const today = dateVersion()
     const last = lastRelease && lastRelease.version
-    if (last && last.startsWith(`${today}.`)) {
-      const parts = last.split('.')
-      const build = parts.length > 3 && !isNaN(parts[3]) ? parseInt(parts[3]) : 0
-      return `${today}.${build + 1}`
+    if (last && last.startsWith(`${today}+`)) {
+      return `${today}+${parseBuild(last) + 1}`
     }
-    return `${today}.0`
+    return `${today}+0`
   },
 }
 
@@ -52,7 +61,7 @@ require.cache[glrPath] = {
             : true) &&
           (isUndefined(before) || semver.lt(tag.version, before))
       )
-      .sort((a, b) => semver.rcompare(a.version, b.version))
+      .sort((a, b) => compareVersions(a.version, b.version))
     if (hit.gitTag) {
       return {
         version: hit.version,
