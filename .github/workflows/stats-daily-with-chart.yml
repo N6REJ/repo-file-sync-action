@@ -112,11 +112,11 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           author: N6REJ <programming@hallhome.us>
           branch: update-stats
           base: main
-          title: 'Update downloads tracking snapshot'
+          title: 'Update downloads tracking snapshot [skip ci]'
           body: |
             Automated update of the release download snapshot and charts.
 
@@ -124,7 +124,7 @@ jobs:
             Day: ${{ needs.publish-downloads.outputs.day }}
             Week: ${{ needs.publish-downloads.outputs.week }}
             Month: ${{ needs.publish-downloads.outputs.month }}
-          commit-message: 'Update stats downloads snapshot'
+          commit-message: 'Update stats downloads snapshot [skip ci]'
           add-paths: |
             stats/**
           delete-branch: true
@@ -132,7 +132,7 @@ jobs:
       - name: Approve Pull Request
         if: steps.cpr.outputs.pull-request-operation != 'none' && steps.cpr.outputs.pull-request-operation != ''
         env:
-          GH_TOKEN: ${{ secrets.repo-file-sync-action_BOT_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           set +e
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
@@ -145,7 +145,7 @@ jobs:
       - name: Enable Pull Request Automerge
         if: steps.cpr.outputs.pull-request-number != ''
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           set +e
           PR_NUMBER="${{ steps.cpr.outputs.pull-request-number }}"
