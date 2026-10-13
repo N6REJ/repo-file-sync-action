@@ -1,18 +1,9 @@
-# Reporting an issue
+# Support
 
-## Before submitting an issue
+If you need help with this project, please use the following resources:
 
-Please search [open issues](https://github.com/N6REJ/repo-file-sync-action/issues) to see if the issue or feature request has already been filed.
+- **Documentation:** Check the README.md and other documentation files in this repository.
+- **Issues:** If you have a question or need help, open an issue in this repository and describe your problem clearly.
+- **Discussions:** If enabled, use the GitHub Discussions tab for general questions and community support.
 
-If you find your issue already exists, add a reaction or comment with additional context.
-
-## Writing good bug reports and feature requests
-
-- File a single issue per problem or feature request.
-- Do not enumerate multiple bugs or feature requests in the same issue.
-- Include as much context as possible (action version, runner OS, workflow snippet, debug logs).
-
-## Closure policy
-
-- Issues that lack the information requested above may be closed.
-- Issues that go a week without a response from the original poster are subject to closure at our discretion.
+For urgent or sensitive matters, you may contact the maintainers directly at [programming@hallhome.us].

@@ -1,33 +1,29 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: '[BUG] '
-labels: 'bug :bug:'
-assignees: ''
+labels: bug
 ---
 
-### Behaviour
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-#### Steps to reproduce
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-1. 
-2. 
-3. 
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
-#### Expected behaviour
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
 
-> Tell me what should happen
+**Environment (please complete the following information):**
+- OS: [e.g. Windows, MacOS, Linux]
+- Browser [e.g. chrome, safari]
+- Version [e.g. 22]
 
-#### Actual behaviour
-
-> Tell me what happens instead
-
-### Environment
-
-* Action version: 
-* GitHub Runner OS: (e.g. `ubuntu-latest`, `windows-latest`)
-* Workflow file (if relevant): 
-
-### Logs
-
-> Enable debug logging by setting `ACTIONS_STEP_DEBUG: true` in your workflow, then paste the relevant log output here.
+**Additional context**
+Add any other context about the problem here.
