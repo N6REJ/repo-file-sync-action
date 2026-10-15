@@ -5,6 +5,7 @@ on:
       - main
     paths-ignore:
       - 'stats/**'
+      - 'docs/**'
 jobs:
   lint:
     name: Lint
